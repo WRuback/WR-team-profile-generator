@@ -1,0 +1,26 @@
+{
+  "name": "wr-team-profile-generator",
+  "version": "1.0.0",
+  "description": "Generates a webpage showing the entered team information.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WRuback/WR-team-profile-generator.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WRuback/WR-team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/WRuback/WR-team-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0",
+    "jest": "^27.4.7"
+  }
+}
