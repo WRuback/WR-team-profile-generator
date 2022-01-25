@@ -1,25 +1,118 @@
+const inquirer = require("inquirer");
+
 const Employee = require("./lib/Employee.js");
 const Engineer = require("./lib/Engineer.js")
 const Intern = require("./lib/Intern.js")
 const Manager = require("./lib/Manager.js")
 
-const Engine = new Engineer("Bob",1,"a@a.com","WRuback");
-console.log(Engine.getGithub());
-console.log(Engine.getRole());
-console.log(Engine.getName());
+const managerPrompts = [
+    {
+        type: "input",
+        message: "What is your Team Manager's Name?",
+        name: "managerName"
+    },
+    {
+        type: "input",
+        message: "What is your Team Manager's Employee ID?",
+        name: "managerID"
+    },
+    {
+        type: "input",
+        message: "What is your Team Manager's Email?",
+        name: "managerEmail"
+    },
+    {
+        type: "input",
+        message: "What is your Team Manager's Office Number?",
+        name: "managerOffice"
+    }
+];
+const engineerPrompts = [
+    {
+        type: "input",
+        message: "What is your Engineer's Name?",
+        name: "engineerName"
+    },
+    {
+        type: "input",
+        message: "What is your Engineer's Employee ID?",
+        name: "engineerID"
+    },
+    {
+        type: "input",
+        message: "What is your Engineer's Email?",
+        name: "engineerEmail"
+    },
+    {
+        type: "input",
+        message: "What is your Engineer's Github Username?",
+        name: "engineerGithub"
+    }
+];
+const internPrompts = [
+    {
+        type: "input",
+        message: "What is your Intern's Name?",
+        name: "internName"
+    },
+    {
+        type: "input",
+        message: "What is your Intern's Employee ID?",
+        name: "internID"
+    },
+    {
+        type: "input",
+        message: "What is your Intern's Email?",
+        name: "internEmail"
+    },
+    {
+        type: "input",
+        message: "What is your Intern's School?",
+        name: "internSchool"
+    }
+];
+const checkPrompts = [
+    {
+        type: "list",
+        message: "What Would you Like to Do?",
+        choices: ["Add an Engineer", "Add an Intern", "Finish entering list"],
+        name: "userChoice"
+    }
+]
 
-const Interior = new Intern("Jim",2,"a@a.com","UCF");
-console.log(Interior.getSchool());
-console.log(Interior.getRole());
-console.log(Interior.getName());
+async function questionLoop() {
+    const team = [];
+    team.push(await inquirer.prompt(managerPrompts)
+        .then(function ({ managerName, managerID, managerEmail, managerOffice }) {
+            return new Manager(managerName, managerID, managerEmail, managerOffice);
+        }));
+    while (true) {
+        let userInput = await inquirer.prompt(checkPrompts)
+            .then(function ({ userChoice }) {
+                return userChoice;
+            });
+        if (userInput === "Add an Engineer") {
+            team.push(await inquirer.prompt(engineerPrompts)
+                .then(function ({ engineerName, engineerID, engineerEmail, engineerGithub }) {
+                    return new Engineer(engineerName, engineerID, engineerEmail, engineerGithub);
+                }));
+        }
+        else if (userInput === "Add an Intern") {
+            team.push(await inquirer.prompt(internPrompts)
+                .then(function ({ internName, internID, internEmail, internSchool }) {
+                    return new Intern(internName, internID, internEmail, internSchool);
+                }));
+        }
+        else{
+            break;
+        }
+    }
+    return team;
+}
 
-const Mana = new Manager("Hank",3,"a@a.com",20);
-console.log(Mana.getOfficeNumber());
-console.log(Mana.getRole());
-console.log(Mana.getName());
+async function init() {
+    let teamArray = await questionLoop();
+    console.log(teamArray);
+}
 
-const {_name, _id, _email, ...args} = Mana;
-console.log(Mana instanceof Employee);
-console.log(Mana instanceof Engineer);
-console.log(Mana instanceof Intern);
-console.log(Mana instanceof Manager);
+init();
