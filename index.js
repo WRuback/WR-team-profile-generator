@@ -129,7 +129,7 @@ function writeToFile(fileName, data) {
             );
 }
 
-function buildHTML(teamArray) {
+function buildHTML(title, teamArray) {
     let teamBoxes = teamArray.map(function(element) {
         if(element instanceof Manager){
             return buildManager(element);
@@ -151,13 +151,13 @@ function buildHTML(teamArray) {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
         <link rel="stylesheet" href="./assets/css/style.css" />
         <script src="https://kit.fontawesome.com/48b5c6d0f7.js" crossorigin="anonymous"></script>
-        <title>Team Profile</title>
+        <title>Team Profile - ${title}</title>
     </head>
     
     <body>
         <section class="hero is-danger is-fullheight">
             <div class="hero-head has-background-info">
-                <p class="level-item has-text-centered title has-text-light p-5">Team Profile</p>
+                <p class="level-item has-text-centered title has-text-light p-5">${title} - Team Profile</p>
             </div>
             <div class="hero-body is-justify-content-center">
                 <div class="container columns is-multiline is-centered">
@@ -229,10 +229,18 @@ function buildIntern(intern){
 }
 
 async function init() {
+    let teamTitle = await inquirer.prompt([
+        {
+        type: "input",
+        message: "What is the Name of the Team?",
+        name: "title"
+        }
+    ]).then(function(response){
+        return response.title;
+    });
     let currentTeam = await questionLoop();
-    console.log(currentTeam);
-    let teamProfile = buildHTML(currentTeam);
-    writeToFile("index_" + currentTeam[0].getName() + ".html", teamProfile);
+    let teamProfile = buildHTML(teamTitle,currentTeam);
+    writeToFile("index_" + teamTitle + ".html", teamProfile);
 }
 
 init();
