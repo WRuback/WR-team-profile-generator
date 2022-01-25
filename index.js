@@ -122,6 +122,12 @@ async function questionLoop() {
     return team;
 }
 
+function writeToFile(fileName, data) {
+    fs.writeFile('./dist/' + fileName, data, (err) =>
+                err ? console.error(err) : console.log('Success!')
+            );
+}
+
 async function init() {
     let teamArray = await questionLoop();
     console.log(teamArray);
