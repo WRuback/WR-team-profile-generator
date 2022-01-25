@@ -9,66 +9,78 @@ const managerPrompts = [
     {
         type: "input",
         message: "What is your Team Manager's Name?",
-        name: "managerName"
+        name: "managerName",
+        validate: (input) => !input.trim().length ? "Please Enter a non-empty String." : true
     },
     {
         type: "input",
         message: "What is your Team Manager's Employee ID?",
-        name: "managerID"
+        name: "managerID",
+        validate: (input) => parseInt(input)<=0 || !parseInt(input)  ? "Please Enter a positive number." : true
     },
     {
         type: "input",
         message: "What is your Team Manager's Email?",
-        name: "managerEmail"
+        name: "managerEmail",
+        validate: (input) => !input.match(/[\w]+@[\w]+\.[\w]+/) ? "Please Enter a valid email format." : true
     },
     {
         type: "input",
         message: "What is your Team Manager's Office Number?",
-        name: "managerOffice"
+        name: "managerOffice",
+        validate: (input) => parseInt(input)<=0 || !parseInt(input)  ? "Please Enter a positive number." : true
     }
 ];
 const engineerPrompts = [
     {
         type: "input",
         message: "What is your Engineer's Name?",
-        name: "engineerName"
+        name: "engineerName",
+        validate: (input) => !input.trim().length ? "Please Enter a non-empty String." : true
     },
     {
         type: "input",
         message: "What is your Engineer's Employee ID?",
-        name: "engineerID"
+        name: "engineerID",
+        validate: (input) => parseInt(input)<=0 || !parseInt(input)  ? "Please Enter a positive number." : true
     },
     {
         type: "input",
         message: "What is your Engineer's Email?",
-        name: "engineerEmail"
+        name: "engineerEmail",
+        validate: (input) => !input.match(/[\w]+@[\w]+\.[\w]+/) ? "Please Enter a valid email format." : true
     },
     {
         type: "input",
         message: "What is your Engineer's Github Username?",
-        name: "engineerGithub"
+        name: "engineerGithub",
+        validate: (input) => !input.trim().length ? "Please Enter a non-empty String." : true
     }
 ];
 const internPrompts = [
     {
         type: "input",
         message: "What is your Intern's Name?",
-        name: "internName"
+        name: "internName",
+        validate: (input) => !input.trim().length ? "Please Enter a non-empty String." : true
     },
     {
         type: "input",
         message: "What is your Intern's Employee ID?",
-        name: "internID"
+        name: "internID",
+        validate: (input) => parseInt(input)<=0 || !parseInt(input)  ? "Please Enter a positive number." : true
     },
     {
         type: "input",
         message: "What is your Intern's Email?",
-        name: "internEmail"
+        name: "internEmail",
+        validate: (input) => !input.match(/[\w]+@[\w]+\.[\w]+/) ? "Please Enter a valid email format." : true
     },
     {
         type: "input",
         message: "What is your Intern's School?",
-        name: "internSchool"
+        name: "internSchool",
+        validate: (input) => !input.trim().length ? "Please Enter a non-empty String." : true
     }
 ];
 const checkPrompts = [
