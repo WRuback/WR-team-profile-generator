@@ -84,7 +84,7 @@ async function questionLoop() {
     const team = [];
     team.push(await inquirer.prompt(managerPrompts)
         .then(function ({ managerName, managerID, managerEmail, managerOffice }) {
-            return new Manager(managerName, managerID, managerEmail, managerOffice);
+            return new Manager(managerName, parseInt(managerID), managerEmail, parseInt(managerOffice));
         }));
     while (true) {
         let userInput = await inquirer.prompt(checkPrompts)
@@ -94,13 +94,13 @@ async function questionLoop() {
         if (userInput === "Add an Engineer") {
             team.push(await inquirer.prompt(engineerPrompts)
                 .then(function ({ engineerName, engineerID, engineerEmail, engineerGithub }) {
-                    return new Engineer(engineerName, engineerID, engineerEmail, engineerGithub);
+                    return new Engineer(engineerName, parseInt(engineerID), engineerEmail, engineerGithub);
                 }));
         }
         else if (userInput === "Add an Intern") {
             team.push(await inquirer.prompt(internPrompts)
                 .then(function ({ internName, internID, internEmail, internSchool }) {
-                    return new Intern(internName, internID, internEmail, internSchool);
+                    return new Intern(internName, parseInt(internID), internEmail, internSchool);
                 }));
         }
         else{
