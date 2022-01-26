@@ -93,7 +93,7 @@ const checkPrompts = [
     {
         type: "list",
         message: "What Would you Like to Do?",
-        choices: ["Add an Engineer", "Add an Intern", "Finish entering list"],
+        choices: ["Add an Engineer", "Add an Intern", "Finish and generate HTML"],
         name: "userChoice"
     }
 ]
