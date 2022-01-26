@@ -1,11 +1,15 @@
+// Used to prompt User.
 const inquirer = require("inquirer");
+// Used to Write Files.
 const fs = require("fs");
 
-const Employee = require("./lib/Employee.js");
-const Engineer = require("./lib/Engineer.js")
-const Intern = require("./lib/Intern.js")
-const Manager = require("./lib/Manager.js")
+// These classes are built to store Employee information of various types.
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
+const Manager = require("./lib/Manager.js");
 
+// Questions to get information to build an Employee of all 3 types.
+// Has validation to make sure all information is correctly formatted.
 const managerPrompts = [
     {
         type: "input",
@@ -84,6 +88,7 @@ const internPrompts = [
         validate: (input) => !input.trim().length ? "Please Enter a non-empty String." : true
     }
 ];
+// Prompts users on whether they want to finish there section, or add a new type of employee.
 const checkPrompts = [
     {
         type: "list",
@@ -93,6 +98,11 @@ const checkPrompts = [
     }
 ]
 
+// Asks the manager questions, makes a manager object and 
+// put it in the output array, then goes into a loop.
+// Starts with the check prompts, and then checks the answer.
+// Either builds an Engineer or Intern (putting them in an array), or ends the loop.
+// At the end of the loop, return the output array.
 async function questionLoop() {
     const team = [];
     team.push(await inquirer.prompt(managerPrompts)
@@ -123,12 +133,18 @@ async function questionLoop() {
     return team;
 }
 
+// Creates a new file with the added data.
 function writeToFile(fileName, data) {
     fs.writeFile('./dist/' + fileName, data, (err) =>
-                err ? console.error(err) : console.log('Success!')
+                err ? console.error(err) : console.log('Success! Your file is written.')
             );
 }
 
+// Creates the html file based on the team array.
+// It adds the title to the html header.
+// It looks at each class in the teamArray, and runs the related card builder.
+// Stores the built cards in an array from aa map function.
+// In the card location, they array is joined with breaks inbetween.
 function buildHTML(title, teamArray) {
     let teamBoxes = teamArray.map(function(element) {
         if(element instanceof Manager){
@@ -171,6 +187,7 @@ function buildHTML(title, teamArray) {
     </html>`
 }
 
+// Builds a Manager card, using information from a manager object.
 function buildManager(manager){
     return `<div class="column is-one-third">
     <div class="panel is-info">
@@ -190,6 +207,8 @@ function buildManager(manager){
 </div>`
 }
 
+// Builds a Engineer card, using information from a engineer object.
+// The github username is also a link to the github profile of the username.
 function buildEngineer(engineer){
     return `<div class="column is-one-third">
     <div class="panel is-info">
@@ -209,6 +228,7 @@ function buildEngineer(engineer){
 </div>`
 }
 
+// Builds a Intern card, using information from a intern object.
 function buildIntern(intern){
     return `<div class="column is-one-third">
     <div class="panel is-info">
@@ -228,7 +248,9 @@ function buildIntern(intern){
 </div>`
 }
 
+// Main flow of the program.
 async function init() {
+    // Asks a prompt for the name of the Team.
     let teamTitle = await inquirer.prompt([
         {
         type: "input",
@@ -238,9 +260,12 @@ async function init() {
     ]).then(function(response){
         return response.title;
     });
+    // Runs the question loop, creating the array of team member classes.
     let currentTeam = await questionLoop();
+    // Takes the team name and array of employee's, and builds the html information.
     let teamProfile = buildHTML(teamTitle,currentTeam);
+    // Writes the new file.
     writeToFile("index_" + teamTitle + ".html", teamProfile);
 }
-
+// Start is run.
 init();
