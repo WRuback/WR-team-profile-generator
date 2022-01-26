@@ -11,6 +11,7 @@
   - [Description](#description)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Walkthrough Video](#walkthrough-video)
   - [Contributing](#contributing)
   - [Tests](#tests)
   - [License](#license)
@@ -33,6 +34,10 @@ The first set will be for the team title, and the manager's information.
 Then, you will be given the option to either make an engineer card, an intern card, or to generate the file. Choosing the engineer or intern will prompt you for their information, and then it will give you the options again. 
 
 Once generate is finally selected, the index.html file will be created with the provided information in the 'dist' folder (under the naming format `index_teamName.HTML`), and the program will end.
+
+## Walkthrough Video
+
+[Watch the Video Walkthrough Here.](https://drive.google.com/file/d/1BzY7lUBqO2Jx7szoqMBFsjtPtJr2HYFl/view?usp=sharing)
 
 ## Contributing
 
